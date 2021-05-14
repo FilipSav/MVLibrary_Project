@@ -2,8 +2,14 @@ const SaveVideo = require("express").Router();
 const modelVideo = require("../../models/video");
 
 SaveVideo.post("/save-video",(req,res) => {
+    const{title,artist,album,year,description,link} = req.body;
     const video = new modelVideo({
-    name:req.body.name
+    title:title,
+    artist:artist,
+    album:album,
+    year:year,
+    description:description,
+    link:link
     })
 
     video.save((err,document) => {
