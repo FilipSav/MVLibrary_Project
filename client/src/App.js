@@ -1,10 +1,18 @@
+import React from 'react'
 import './App.css';
-
-function App() {
+import Main from "./pages/Main";
+import AddVideos from "./pages/AddVideos";
+import {BrowserRouter,Switch,Route} from "react-router-dom";
+import Menu from "./componnents/Menu";
+const App = () => {
   return (
-    <div className="App">
-    <p>Hello wrold</p>
-    </div>
+    <BrowserRouter>
+    <Menu/>
+    <Switch>
+      <Route exact path ="/" component={Main}/>
+      <Route exact path ="/add-video" component={AddVideos}/>
+    </Switch>
+    </BrowserRouter>
   );
 }
 
