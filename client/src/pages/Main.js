@@ -1,36 +1,34 @@
 import React, {useState} from 'react'
 const Main = () => {
-  const [video, setVideo] = useState([
-    {title:"muzika"},
-    {artist:"John"},
-    {album:"you need to save"},
-    {year:1980},
-    {description:"je to hudba"},
-    {link:"www.seznam.cz"}
-  ]);
-  const addingVideo = () => {
-    const array = [...video];
-    array.push({title:"muzika"});
-    array.push({artist:"Adam"});
-    array.push({album:"Helo helo"});
-    array.push({year:1980});
-    array.push({description:"je to písnička"});
-    array.push({link:"www.google.com"});
-    setVideo(array);
+  const [video, setVideo] = useState([]);
+  const [serverMessage,setserverMessage] = useState("");
+  
+  const addingVideo = async () => {
+    setserverMessage("reloading data")
+    const data = await fetch("http://localhost:5000/get-video");
+    const finalData = await data.json();
+    const {msg,documents} = finalData;  
+    setVideo(documents)
+    setserverMessage(msg);
   }
   return (
     <div>
       {
         video.map((video,index) => {
           return (
-            <div key={index}>{video.title}{video.artist}
-            {video.album}{video.year}{video.description}{video.link}</div>
+            <div key={index}>{video.title}<p></p>
+            {video.artist}<p></p>
+            {video.album}<p></p>
+            {video.year}<p></p>
+            {video.description}<p></p>
+            {video.link}</div>
             
           )
           
         })
       }
       <div className="btn" onClick={addingVideo}>Add video</div>
+      <div className="msg">{serverMessage}</div>
     </div>
   );
 }

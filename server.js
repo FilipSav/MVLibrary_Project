@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 5000;
 const db = require ("./databaze/connect");
 const getVideos = require("./routes/GET/getVideo")
 const SaveVideo = require("./routes/POST/saveVideo")
+const cors = require("cors");
 db.connect();
 
 /*
@@ -20,7 +21,7 @@ app.use(express.text({extended:false}));
 /*
 Routy - GET
 */
-app.use("/",getVideos);
+app.use("/",cors(),getVideos);
 /*
 Routy - POST
 */ 
