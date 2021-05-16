@@ -4,8 +4,10 @@ import Main from "./pages/Main";
 import AddVideos from "./pages/AddVideos";
 import {BrowserRouter,Switch,Route} from "react-router-dom";
 import Menu from "./componnents/Menu";
+import {GlobalProvider} from "./context/GlobalContext/GlobalContext"
 const App = () => {
   return (
+    <GlobalProvider>
     <BrowserRouter>
     <Menu/>
     <Switch>
@@ -13,6 +15,7 @@ const App = () => {
       <Route exact path ="/add-video" component={AddVideos}/>
     </Switch>
     </BrowserRouter>
+    </GlobalProvider>
   );
 }
 
