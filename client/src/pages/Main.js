@@ -1,8 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
+import Videos from "../componnents/Videos"
 const Main = () => {
   const [video, setVideo] = useState([]);
   const [serverMessage,setserverMessage] = useState("");
   
+  useEffect(() => {
+    addingVideo()
+  },[])
   const addingVideo = async () => {
     setserverMessage("reloading data")
     const data = await fetch("http://localhost:5000/get-video");
@@ -16,18 +20,20 @@ const Main = () => {
       {
         video.map((video,index) => {
           return (
-            <div key={index}>{video.title}<p></p>
-            {video.artist}<p></p>
-            {video.album}<p></p>
-            {video.year}<p></p>
-            {video.description}<p></p>
-            {video.link}</div>
+            <Videos key={index}
+            title={video.title}
+            artist ={video.artist}
+            album ={video.album}
+            year ={video.year}
+            desription ={video.desription}
+            link ={video.link}
+            />
+           
             
           )
           
         })
       }
-      <div className="btn" onClick={addingVideo}>Add video</div>
       <div className="msg">{serverMessage}</div>
     </div>
   );
